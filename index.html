@@ -118,7 +118,7 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/ole2412/radar_camera_fusion"
+                <a href="https://github.com/ole2412/radar-camera-fusion"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -186,17 +186,8 @@
                 </p>
                 <p>
                     We propose a three stage method that detects 3D objects from radar and camera input.
-                </p>
-
-                <p>
                     First, we extract image and radar features using backbone networks trained on the respective modalities.
-                </p>
-
-                <p>
                     We then aggregate the radar features with predefined 3D proposals and combine the resulting queries with frustum-fused Camera-Radar features through perspective aggregation.
-                </p>
-
-                <p>
                     Finally, we leverage the feature maps to generate the 3D detections.
                 </p>
             </div>
@@ -209,7 +200,8 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">3D Object Detection on the K-Radar Dataset</h2>
+        <h2 class="title is-3">3D Object Detection on the <a
+              href="https://github.com/kaist-avelab/K-Radar">K-Radar Dataset</a></h2>
         <div class="content has-text-justified">
           <p>              
               We compare our method against recent state-of-the-art 3D object detection methods on diverse scenarios of the K-Radar dataset.
@@ -245,192 +237,8 @@
             </video>
             <p class="results-caption">heavy snow, day, highway</p>
           </div>
-          <!-- <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/images/Gen3C.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">Input video generated with Gen3C.</p>
-          </div>
-          <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/images/Voyager.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">Input video generated with Voyager.</p>
-          </div>
-          <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/images/Wan.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">Input video generated with Wan-2.2.</p>
-          </div> -->
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- <section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-        <h2 class="title is-3">Interactive 3DGS Viewer</h2>
-
-        <div class="content has-text-justified">
-            <p>
-                We provide an interactive viewer of large-scale 3D worlds generated with our method.
-                Here, we trained a 3DGS scene instead of 2DGS to better support online viewers.
-                Note that the scenes are compressed using the .sog format to reduce the file size.
-            </p>
-            <p>
-                Use the dropdown menu to select a scene and click "Load Scene" to visualize it.
-                Navigate the scene with mouse, keyboard, or touch controls:
-            </p>
-        </div>
-
-        <div style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
-            <button id="load-scene-btn" class="button is-primary is-large">Load Scene</button>
-            <div class="select is-large">
-                <select id="scene-selector">
-                    <option value="https://kaldir.vc.in.tum.de/hoellein/video_to_world/celestial.sog">Celestial</option>
-                    <option value="https://kaldir.vc.in.tum.de/hoellein/video_to_world/chocolate.sog">Chocolate</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- File Size Display -->
-        <script>
-            async function formatFileSize(bytes) {
-                if (bytes === 0) return "0 B";
-                const units = ["B", "KB", "MB", "GB", "TB"];
-                const i = Math.floor(Math.log(bytes) / Math.log(1024));
-                return (bytes / Math.pow(1024, i)).toFixed(2) + " " + units[i];
-            }
-
-            async function updateDropdownWithSizes() {
-                const select = document.getElementById("scene-selector");
-                const options = Array.from(select.options);
-
-                for (const option of options) {
-                    try {
-                        const response = await fetch(option.value, { method: "HEAD" });
-                        const length = response.headers.get("Content-Length");
-
-                        if (length) {
-                            const size = await formatFileSize(parseInt(length, 10));
-                            option.textContent += ` (${size})`;
-                        } else {
-                            option.textContent += " (Size unknown)";
-                        }
-                    } catch (error) {
-                        console.error(`Error fetching size for ${option.value}:`, error);
-                        option.textContent += " (Error)";
-                    }
-                }
-            }
-
-            // Run after page loads
-            document.addEventListener("DOMContentLoaded", updateDropdownWithSizes);
-        </script>
-
-        <!-- Viewer Section -->
-        <div id="viewer-section" style="display:none; position:relative; width:100%; height:70vh; min-height:400px; margin: 0 auto;">
-            <div id="loading-overlay" style="
-                position:absolute; top:0; left:0; width:100%; height:100%;
-                background:rgba(0,0,0,0.0); color:black; display:flex;
-                justify-content:center; align-items:center; font-size:2.5em;
-                z-index:10;">
-                Loading... <span id="progress-text">0%</span>
-            </div>
-            <canvas id="viewer-canvas" style="width:100%; height:100%; display:block; touch-action:none;"></canvas>
-        </div>
-
-        <!-- 3D Viewer Scripts -->
-        <script type="importmap">
-        {
-        "imports": {
-            "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.178.0/three.module.js",
-            "@sparkjsdev/spark": "https://sparkjs.dev/releases/spark/0.1.10/spark.module.js"
-        }
-        }
-        </script>
-
-        <script type="module">
-            import * as THREE from "three";
-            import { SplatMesh, SparkControls, SplatLoader } from "@sparkjsdev/spark";
-
-            let renderer = null;
-            let camera = null;
-            let sparkControls = null;
-            let currentMesh = null;
-            let firstLoad = true;
-
-            const scene = new THREE.Scene();
-            const canvas = document.getElementById('viewer-canvas');
-
-            function initRenderer() {
-                const viewerSection = document.getElementById('viewer-section');
-                const width = viewerSection.clientWidth;
-                const height = viewerSection.clientHeight;
-
-                renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
-                renderer.setSize(width, height);
-                renderer.setPixelRatio(window.devicePixelRatio);
-
-                camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-                sparkControls = new SparkControls({ canvas: renderer.domElement });
-
-                renderer.setAnimationLoop(() => {
-                    renderer.render(scene, camera);
-                    sparkControls.update(camera);
-                });
-
-                window.addEventListener('resize', () => {
-                    const w = viewerSection.clientWidth;
-                    const h = viewerSection.clientHeight;
-                    renderer.setSize(w, h);
-                    camera.aspect = w / h;
-                    camera.updateProjectionMatrix();
-                });
-            }
-
-            document.getElementById('load-scene-btn').addEventListener('click', () => {
-                const viewerSection = document.getElementById('viewer-section');
-
-                if (firstLoad) {
-                    viewerSection.style.display = 'block';
-                    initRenderer();
-                    firstLoad = false;
-                }
-
-                const loader = new SplatLoader();
-                const sceneName = document.getElementById('scene-selector').value;
-
-                document.getElementById('progress-text').textContent = '0%';
-                document.getElementById('loading-overlay').style.display = 'flex';
-
-                loader.loadAsync(sceneName, (event) => {
-                    if (event.type === "progress") {
-                        const progress = event.lengthComputable
-                            ? `${((event.loaded / event.total) * 100).toFixed(2)}%`
-                            : `${event.loaded} bytes`;
-                        document.getElementById('progress-text').textContent = progress;
-                    }
-                })
-                .then((packedSplats) => {
-                    document.getElementById('loading-overlay').style.display = 'none';
-
-                    if (currentMesh) {
-                        scene.remove(currentMesh);
-                    }
-
-                    const splatMesh = new SplatMesh({ packedSplats });
-                    splatMesh.rotation.z = Math.PI;
-                    currentMesh = splatMesh;
-                    scene.add(currentMesh);
-                })
-                .catch(console.warn);
-            });
-        </script>
-
     </div>
   </div>
 </section>
@@ -455,7 +263,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <!-- <a class="icon-link"
-         href="static/images/world_reconstruction_from_inconsisten_views.pdf">
+         href="static/images/temp.pdf">
         <i class="fas fa-file-pdf"></i>
       </a> -->
       <a class="icon-link" href="https://github.com/ole2412" class="external-link" disabled>
