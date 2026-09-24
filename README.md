@@ -1,7 +1,7 @@
 # Grasp Planning for Robotic Manipulation in 6-DoF
 
-[[Project Page](https://ole2412.github.io/graph-planning/)]
-[[Paper](tbd)]
+[[Project Page](https://ole2412.github.io/grasp-planning/)]
+[[Paper](https://github.com/ole2412/grasp-planning/blob/website/static/videos/Grasp%20Planning%20for%20Robotic%20Manipulation%20in%206-DoF.pdf)]
 
 If you find this research is useful in your research or applications, please consider giving us a star 🌟 and citing it by the following BibTeX entry:
 
