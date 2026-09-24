@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Radar-Specific Features for Radar-Camera 3D Object Detection in Autonomous Driving">
-  <meta name="keywords" content="3D object detection, radar-camera fusion, autonomous driving, perception, sensor fusion,neural networks,k-radar">
+        content="Grasp Planning for Robotic Manipulation in 6-DoF">
+  <meta name="keywords" content="Robotic Grasping, 6-DoF, Task-Oriented Grasping, ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Radar-Camera 3D Object Detection</title>
+  <title>Grasp Planning for Robotic Manipulation in 6-DoF</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -48,6 +48,9 @@
           More Research
         </a>
         <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://ole2412.github.io/radar-camera-fusion/">
+            RC-Fusion in Autonomous Driving
+          </a>
           <a class="navbar-item" href="https://ole2412.github.io/ROS-robot/">
             Robot SLAM
           </a>
@@ -72,8 +75,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Radar-Specific Features for Radar-Camera 3D Object Detection in Autonomous Driving</h1>
-          <h2 class="title is-5 publication-title">Master's Thesis 2026</h2>
+          <h1 class="title is-1 publication-title">Grasp Planning for Robotic Manipulation in 6-DoF</h1>
+          <h2 class="title is-5 publication-title">Seminar Paper 2024</h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://ole2412.github.io/">Ole Banning</a>
@@ -87,15 +90,15 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link (Original) -->
-              <!-- <span class="link-block">
-                <a href="static/images/file.pdf"
+              <span class="link-block">
+                <a href="static/videos/Grasp Planning for Robotic Manipulation in 6-DoF.pdf"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
                   <span>Paper</span>
                 </a>
-              </span> -->
+              </span>
               <!-- arXiv Link. -->
               <!-- <span class="link-block">
                 <a href="https://arxiv.org/abs/123"
@@ -117,15 +120,15 @@
                 </a>
               </span> -->
               <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/ole2412/radar-camera-fusion"
+              <!-- <span class="link-block">
+                <a href="https://github.com/ole2412/grasp-planning"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
                   <span>Code</span>
                   </a>
-              </span>
+              </span> -->
             </div>
 
           </div>
@@ -137,13 +140,22 @@
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video autoplay controls muted loop height="100%">
-        <source src="static/videos/ours_train_17_web.mp4"
+    <div class="hero-body" >
+      <video autoplay controls muted loop style="width: 100%; max-width: 720px; display: block; margin: 0 auto 2rem auto;">
+        <source src="static/videos/teaser_grasp.webm"
+                type="video/webm">
+        <source src="static/videos/teaser_grasp.mp4"
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        Our method detects 3D objects from radar and camera input using radar-specific feature extraction and sparse frustum fusion to overcome diverse environmental conditions. 
+        Example taken from <a href="https://sites.google.com/view/foundationgrasp">FoundationGrasp</a>.
+      </h2>
+
+
+      <h2 class="subtitle has-text-centered">
+
+        In this seminar paper, we outline the challenges of task-oriented grasping, two promising approaches, <a
+              href="https://sites.google.com/view/foundationgrasp">FoundationGrasp</a> and <a href="https://sites.google.com/view/catgrasp">CaTGrasp</a>, and discuss future directions of task-oriented grasping. 
       </h2>
     </div>
   </div>
@@ -158,7 +170,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Autonomous driving relies heavily on perception quality. However, the most common sensor setup, Camera-LiDAR fusion, is costly, degrades under low light and adverse weather, and cannot directly measure the velocity of target objects. To this end, we propose a Camera-Radar fusion method with a radar-specific feature encoder that overcomes the limitations of LiDAR-based backbones for radar data. First, we extract image and radar features using backbones tailored to each sensor modality. We then aggregate radar features with predefined 3D proposals and combine the resulting queries with frustum-fused Camera-Radar features through perspective aggregation. This allows each modality to contribute its complementary strengths. We incorporate local attention to reduce computational cost while maintaining accuracy. Finally, a feed-forward network predicts the 3D detections. We demonstrate that our detector outperforms the baselines in both 3D and BEV detection accuracy, effectively unlocking radar as a first-class modality for 3D perception in autonomous driving.
+            Robotic grasping is a fundamental capability in manufacturing, healthcare, and domestic environments, enabling robots to manipulate objects efficiently and autonomously. This paper focuses on task-oriented grasping (TOG) in six degrees of freedom, which improves accuracy and translatability to real-world applications. We aim to contribute to the ongoing development of TOG by identifying challenges, evaluation metrics, describing two TOG approaches, and suggesting future research directions towards fully autonomous robotic task execution.
           </p>
         </div>
       </div>
@@ -179,16 +191,26 @@
     <!-- Method details. -->
     <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-            <h2 class="title is-3">Three-Stage Perception</h2>
+            <h2 class="title is-3">Three-Stage Grasp</h2>
             <div class="content has-text-justified">
                 <p class="has-text-centered">
-                    <img src="static/videos/method.png" alt="method overview" style="display: inline-block; max-width: 100%;">
+                    <img src="static/videos/grasping_stages.png" alt="method overview" style="display: inline-block; max-width: 100%;">
+                </p>
+                <p class="has-text-centered">
+                    Image adapted from <a href="https://arxiv.org/abs/2207.02556">Newburry et al</a>.
                 </p>
                 <p>
-                    We propose a three stage method that detects 3D objects from radar and camera input.
-                    First, we extract image and radar features using backbone networks trained on the respective modalities.
-                    We then aggregate the radar features with predefined 3D proposals and combine the resulting queries with frustum-fused Camera-Radar features through perspective aggregation.
-                    Finally, we leverage the feature maps to generate the 3D detections.
+                    First, Grasp Synthesis find one or multiple high-quality grasps based on criterias such as grasp stability, reliability, gripper geometry and kinematics.
+                    
+                </p>
+                <p>
+                    Then, Grasp Planning generates a trajectory for the robot to execute the grasp while avoiding collisions.
+                    Second, the planned trajectory and grasp are executed. The gripper applies forces and torques to a set of contact points on the object.
+                    
+                </p>
+                <p>
+                    Finally, the object is lifted and used for the next task.
+                    
                 </p>
             </div>
         </div>
@@ -200,12 +222,11 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">3D Object Detection on the <a
-              href="https://github.com/kaist-avelab/K-Radar">K-Radar Dataset</a></h2>
+        <h2 class="title is-3">Grasping Planning with <a href="https://sites.google.com/view/catgrasp">CaTGrasp</a>
+        </h2>
         <div class="content has-text-justified">
           <p>              
-              We compare our method against recent state-of-the-art 3D object detection methods on diverse scenarios of the K-Radar dataset.
-              We provide the ground truth visuals for proper comparison.
+              
           </p>
         </div>
       </div>
@@ -213,31 +234,41 @@
     <div class="columns is-centered">
       <div class="column">
         <div id="input-videos-carousel" class="results-carousel results-vertical">
-          <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/videos/teaser_seq17_grid.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">sunny, day, university</p>
-          </div>
-          <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/videos/teaser_seq24_grid.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">rain, night, urban</p>
-          </div>
-          <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/videos/teaser_seq44_grid.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">fog, day, parking space</p>
-          </div>
-          <div class="item">
-            <video autoplay controls muted height="100%">
-              <source src="static/videos/teaser_seq56_grid.mp4" type="video/mp4">
-            </video>
-            <p class="results-caption">heavy snow, day, highway</p>
-          </div>
+            <img src="static/videos/catgrasp.png" alt="method overview" style="display: inline-block; max-width: 100%;">
+            <div class="content has-text-centered">
+              Image taken from <a href="https://sites.google.com/view/catgrasp">CaTGrasp</a>.
+            </div>
+            <div class="content has-text-justified">
+              CaTGrasp is an exemplar-based, data-driven method for 6-DoF task-oriented grasping with a two-finger parallel gripper, designed for industrial assembly tasks where an object is picked from clutter and then placed at a target location. To avoid costly manual labeling, it learns category-level knowledge such as shape, pose, and task-relevant gripper-object contact points from unlabeled synthetic point clouds by simulating grasps and measuring whether the object can be lifted and placed successfully (Fig. 5a). At execution time, the scene point cloud is segmented, a target object is chosen (Fig. 5b), and the learned category knowledge is transferred to it based on object similarity (Fig. 5c). Grasp candidates are then sampled and ranked by combining grasp stability with task success (Fig. 5d). The approach performs nearly as well in the real world as in simulation, but it only covers three object categories, which limits generalization to unseen objects.
+            </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Grasping Planning with <a href="https://sites.google.com/view/foundationgrasp">FoundationGrasp</a></a>
+        </h2>
+        <div class="content has-text-justified">
+          <p>              
+              
+          </p>
         </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column">
+        <div id="input-videos-carousel" class="results-carousel results-vertical">
+            <img src="static/videos/foundationgrasp.png" alt="method overview" style="display: inline-block; max-width: 100%;">
+            <div class="content has-text-centered">
+              Image taken from <a href="https://sites.google.com/view/foundationgrasp">FoundationGrasp</a>.
+            </div>
+            <div class="content has-text-justified">
+              FoundationGrasp targets better generalization to unseen objects and tasks by integrating foundation models into task-oriented grasping, trained on the LaViA-TaskGrasp dataset of kitchen objects and tasks. Given an object image, a point cloud with a grasp candidate, and a language instruction for instance "pick up the cup to pour," GPT generates a geometric description of the object and a semantic description of the task, while crowdsourced internet images add extra views to counter occlusion. The semantic information is encoded with BERT, and the geometric information is encoded after CLIP extracts multimodal features from the image. A transformer with self- and cross-attention processes both branches and outputs a score indicating how well each candidate, sampled by a task-agnostic grasp sampler, suits the task. Because the LLM descriptions link geometrically similar objects and related verbs, the method generalizes much better, although it still requires labor-intensive annotation, tends to prefer less robust grasps near handle ends, and is limited to two-finger grippers.
+            </div>
       </div>
     </div>
   </div>
@@ -247,13 +278,12 @@
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
-  @mastersthesis{banning_radar-specific_2026,
+  @misc{banning_grasp-planning_2024,
     author = {Banning, Ole},
-    title  = {Radar-Specific Features for Radar-Camera 3D Object Detection},
+    title  = {Grasp Planning for Robotic Manipulation in 6-DoF},
     school = {Technical University of Munich},
-    year   = {2026},
-    type   = {Master's thesis},
-    note   = {In preparation},
+    year   = {2024},
+    type   = {Seminar Paper},
   }
 </code></pre>
   </div>
@@ -262,10 +292,10 @@
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <!-- <a class="icon-link"
-         href="static/images/temp.pdf">
+      <a class="icon-link"
+         href="static/videos/Grasp Planning for Robotic Manipulation in 6-DoF.pdf">
         <i class="fas fa-file-pdf"></i>
-      </a> -->
+      </a>
       <a class="icon-link" href="https://github.com/ole2412" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
